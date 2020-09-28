@@ -1,0 +1,140 @@
+{% extends '/layouts/layout.html' %}
+
+{% block css %}
+    <!-- Chart CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='Bootstrap-admin/Charts/Chart.min.css') }}">
+{% endblock %}
+
+<!-- Content -->
+{% block content %}
+    <!-- Content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary box-solid">
+                    <div class="box-header with-border">
+                        <div class="pull-left">
+                            <h3 class="box-title"></i><b class="font-mont"><i class="fa fa-line-chart"></i><b> Hasil Data Uji</b></h3>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="box">
+                            <div class="box-header"></div>
+                            <div class="box-body">
+                                <div class="pull-left">
+                                    <a href="{{ url_for('indexHasilDataBaru') }}" class="btn btn-default"><i class="fa fa-arrow-left"></i> <b>Kembali</b></a>
+                                </div>
+                                <canvas id="myChart" width="400" height="150"></canvas>
+                            </div>
+                                <input type="hidden" id="recordTLD" value="{{ record }}">
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="pull-right">
+                            <!-- <a href="{{ url_for('convertCSV') }}" class="btn btn-primary"><i class="fa fa-print"></i><b> Konversi CSV</b></a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+<!-- JS -->
+{% block js %}
+
+<!-- Charts JS -->
+<script src="{{ url_for('static', filename='Bootstrap-admin/Charts/Chart.min.js') }}"></script>
+<script src="{{ url_for('static', filename='Bootstrap-admin/Charts/Chart.bundle.min.js') }}"></script>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    let chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: "Data {{ record[0][25] }}",
+                borderColor: 'rgb(51, 102, 204)',
+                fill: true,
+                data: [ 
+                        parseFloat("{{ record[0][1] }}"), 
+                        parseFloat("{{ record[0][2]  }}"), 
+                        parseFloat("{{ record[0][3]  }}"), 
+                        parseFloat("{{ record[0][4]  }}"), 
+                        parseFloat("{{ record[0][5]  }}"), 
+                        parseFloat("{{ record[0][6]  }}"), 
+                        parseFloat("{{ record[0][7]  }}"), 
+                        parseFloat("{{ record[0][8]  }}"), 
+                        parseFloat("{{ record[0][9]  }}"), 
+                        parseFloat("{{ record[0][10]  }}"), 
+                        parseFloat("{{ record[0][11]  }}"), 
+                        parseFloat("{{ record[0][12]  }}"), 
+                        parseFloat("{{ record[0][13]  }}"), 
+                        parseFloat("{{ record[0][14]  }}"), 
+                        parseFloat("{{ record[0][15]  }}"), 
+                        parseFloat("{{ record[0][16]  }}"), 
+                        parseFloat("{{ record[0][17]  }}"), 
+                        parseFloat("{{ record[0][18]  }}"), 
+                        parseFloat("{{ record[0][19]  }}"), 
+                        parseFloat("{{ record[0][20]  }}"), 
+                        parseFloat("{{ record[0][21]  }}"), 
+                        parseFloat("{{ record[0][22]  }}"), 
+                        parseFloat("{{ record[0][23]  }}"), 
+                        parseFloat("{{ record[0][24]  }}"), 
+                    ]
+            }],
+            labels: [
+                        'Warna', 
+                        'TDS', 
+                        'Kekeruhan', 
+                        'Suhu', 
+                        'E.Coli', 
+                        'Total_Koliform', 
+                        'Fluorida', 
+                        'Total Kromium', 
+                        'Nitrit', 
+                        'Nitrat', 
+                        'Sianida', 
+                        'Aluminium', 
+                        'Besi', 
+                        'Kesadahan', 
+                        'Khlorida', 
+                        'Mangan', 
+                        'pH', 
+                        'Seng', 
+                        'Sulfat', 
+                        'Tembaga', 
+                        'Amonia', 
+                        'Zat Organik', 
+                        'Karbondioksida Bebas', 
+                        'Alkalinitas Total'
+                    ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        suggestedMin: 50,
+                        suggestedMax: 100
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Nilai'
+                    }
+                }]
+            }
+           
+        }
+    });
+
+    // chart.data.datasets.push({
+    //     label : 'Data Tidak Layak Diminum',
+    //     borderColor: 'rgb(204, 0, 0)',
+    //     fill: true,
+    //     data: [  ]
+    // });
+chart.update();
+
+    
+</script>
+
+{% endblock js %}

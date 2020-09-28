@@ -1,0 +1,570 @@
+{% extends '/layouts/layout.html' %}
+
+{% block css %}
+
+<style>
+    .form-control{
+        width: 160px;
+        border-radius: 10px;
+    }
+    
+</style>
+
+{% endblock %}
+
+{% block content %}
+    <!-- Content Header -->
+    <section class="content-header">
+        <h1>
+            Data Baru
+            <small>Index</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-plus-square"></i> Data Baru</a></li>
+        </ol>
+    </section>
+
+    <!-- Body -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                {% if prediksi %}
+                    {{ prediksi[0]|pprint }}
+                {% endif %}
+                <div class="box box-primary box-solid">
+                    <div class="box-header with-border">
+                        <div class="pull-left">
+                            <h3 class="box-title"><b class="font-mont">Hitung Data Baru</b></h3>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" onclick="cekValueK()" class="btn btn-danger"><i class="fa fa-line-chart"></i><b> Cek nilai K ideal</b></button>
+                        </div>
+                    </div>
+                    
+                    <div class="box-body">
+                        <div class="box">
+                            <div class="box-header">
+                                <h3 class="box-title"><i class="fa fa-calculator"></i><b class="font-mont"> Parameter Inputan Data Baru</b></h3>
+                            </div>
+                            <span id="valueWarna"></span>
+                            <form id="formDataUji" method="POST">
+
+                                <!-- Input Hidden -->
+                                <input type="hidden" name="Label" id="LabelData">
+                                <div class="box-body">
+                                    <div class="tab-content" style="margin-left: 100px;">
+                                        <div class="tab-pane active" id="tab1">
+                                            <div class="row">
+                                                <!-- Warna -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Warna</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Warna" id="Warna" class="form-control only-number" autocomplete="off" required placeholder="Warna">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Nitrit -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Nitrit</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Nitrit" id="Nitrit" class="form-control only-number" autocomplete="off" required placeholder="Nitrit">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- TDS -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">TDS</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="TDS" id="TDS" class="form-control only-number" autocomplete="off" required placeholder="TDS">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Nitrat -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Nitrat</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Nitrat" id="Nitrat" class="form-control only-number" autocomplete="off" required placeholder="Nitrat">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- Kekeruhan -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Kekeruhan</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Kekeruhan" id="Kekeruhan" class="form-control only-number" autocomplete="off" required placeholder="Kekeruhan">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Sianida -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Sianida</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Sianida" id="Sianida" class="form-control only-number" autocomplete="off" required placeholder="Sianida">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- Suhu -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Suhu</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Suhu" id="Suhu" class="form-control only-number" autocomplete="off" required placeholder="Suhu">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Aluminium -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Aluminium</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Aluminium" id="Aluminium" class="form-control only-number" autocomplete="off" required placeholder="Aluminium">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- Sisa Chlor -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Sisa Chlor</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Sisa_Chlor" id="Sisa_Chlor" class="form-control only-number" autocomplete="off" required placeholder="Sisa Chlor">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Besi -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Besi</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Besi" id="Besi" class="form-control only-number" autocomplete="off" required placeholder="Besi">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- E - Coli -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">E. Coli</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="E_Coli" id="E_Coli" class="form-control only-number" autocomplete="off" required placeholder="E. Coli">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Kesadahan -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Kesadahan</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Kesadahan" id="Kesadahan" class="form-control only-number" autocomplete="off" required placeholder="Kesadahan">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- Total Koliform -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Total Koliform</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Total_Koliform" id="Total_Koliform" class="form-control only-number" autocomplete="off" required placeholder="Total Koliform">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Khlorida -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Khlorida</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Khlorida" id="Khlorida" class="form-control only-number" autocomplete="off" required placeholder="Khlorida">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab2">
+                                            <div class="row">
+                                                <!-- Mangan -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Mangan</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Mangan" id="Mangan" class="form-control only-number" autocomplete="off" required placeholder="Mangan">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Karbondioksida Bebas -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Karbondioksida Bebas</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Karbondioksida_Bebas" id="Karbondioksida_Bebas" class="form-control only-number" autocomplete="off" required placeholder="Karbondiosida Bebas">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- pH -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">pH</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="PH" id="PH" class="form-control only-number" autocomplete="off" required placeholder="pH">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Alkalinitas Total -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Alkalinitas Total</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Alkalinitas_Total" id="Alkalinitas_Total" class="form-control only-number" autocomplete="off" required placeholder="Alkalinitas Total">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- Seng -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Seng</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Seng" id="Seng" class="form-control only-number" autocomplete="off" required placeholder="Seng">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Fluorida -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Fluorida</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Fluorida" id="Fluorida" class="form-control only-number" autocomplete="off" required placeholder="Fluorida">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- Sulfat -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Sulfat</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Sulfat" id="Sulfat" class="form-control only-number" autocomplete="off" required placeholder="Sulfat">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Total Kromium -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Total Kromium</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Total_Kromium" id="Total_Kromium" class="form-control only-number" autocomplete="off" required placeholder="Total Kromium">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- Tembaga -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Tembaga</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Tembaga" id="Tembaga" class="form-control only-number" autocomplete="off" required placeholder="Tembaga">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- Amonia -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Amonia</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Amonia" id="Amonia" class="form-control only-number" autocomplete="off" required placeholder="Amonia">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- Zat Organik -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Zat Organik</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Zat_Organik" id="Zat_Organik" class="form-control only-number" autocomplete="off" required placeholder="Zat Organik">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Nilai K -->
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="">Nilai K</label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="Nilai_K" id="Nilai_K" class="form-control only-number" autocomplete="off" required placeholder="Nilai K">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pull-right">
+                                                <button type="button" class="btn btn-success" id="btnHitung"><i class="fa fa-calculator"></i><b> Hitung Data Baru</b></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <div id="btnBack">
+                                        <div class="pull-left">
+                                            <button type="button" id="btnKembali" data-toggle="tab" data-target="#tab1" class="btn btn-danger"><i class="fa fa-arrow-left"></i><b> Kembali</b></button>
+                                        </div>
+                                    </div>
+                                    <div id="btnNext">
+                                        <div class="pull-right">
+                                            <button type="button" id="btnLanjutkan" data-toggle="tab" data-target="#tab2" class="btn btn-primary"><b>Lanjutkan </b><i class="fa fa-arrow-right"></i></button>
+                                        </div>
+                                    </div>
+                                    <div id="btnSubmit">
+                                        <div class="pull-right">
+                                            <button type="button" id="btnSubmitData" class="btn btn-primary"><i class="fa fa-floppy-o"></i><b> Simpan Data Baru</b></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include 'DataBaru/modalDatabaru.html' %}
+
+{% endblock %}
+
+{% block js %}
+    <!-- jQuery Knob Chart -->
+    <script src="{{ url_for('static', filename='Bootstrap-admin/bower_components/jquery-knob/dist/jquery.knob.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='Bootstrap-admin/bower_components/chart.js/Chart.js') }}"></script>
+    <script src="{{ url_for('static', filename='Bootstrap-admin/bower_components/fastclick/lib/fastclick.js') }}"></script>
+    <!-- <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> -->
+    <script src="{{ url_for('static', filename='Bootstrap-admin/charts.min.js') }}"></script>
+    <script>
+        // When Load It
+        $(function(){
+            // Hide
+            $('#btnSubmit').hide();
+            
+            // Disable
+            $('#btnKembali').attr('disabled', true);
+            $('#btnLanjutkan').prop('type', 'button');
+            $('#btnNext').show();
+
+            // Button submit
+            $('#btnSubmitData').attr('disabled', true);
+
+            // Ajax Hitung
+            $('#btnHitung').on('click', function (e){
+                // Variable 
+                if(!e.isDefaultPrevented()){                    
+                    //Ajax
+                    $.ajax({
+                        url : "{{ url_for('databaruIndex') }}",
+                        type : "POST",
+                        data : $('#formDataUji').serialize(),
+                        dataType : "text",
+                        success : function(data)
+                        {
+                            swal({
+                                title: data,
+                                text: "Berhasil",
+                                icon: "success",
+                                button: "OK",
+                            });
+
+                            $('#LabelData').val(data);
+                            $('#btnSubmitData').attr('disabled', false);
+                        },
+                        error : function(error)
+                        {
+                            console.log(error);
+                            swal({
+                                title: "Gagal!",
+                                text: "Ada kesalahan pada proses perhitungan",
+                                icon: "warning",
+                                button: "OK",
+                            });
+                        }
+                    });
+                    return false;
+                }
+            });
+
+            // Ajax Simpan
+            $('#btnSubmitData').on('click', function(e){
+                // Variable
+                if(!e.preventDefault()){
+                    // Ajax
+                    $.ajax({
+                        url : "{{ url_for('dataBaruSimpan') }}",
+                        type : "POST",
+                        data : $('#formDataUji').serialize(),
+                        dataType : "Text",
+                        success : function(data)
+                        {
+                            swal({
+                                title: "Apakah anda ingin menyimpan data baru?",
+                                text: "",
+                                icon: "warning",
+                                buttons: true,
+                                dangerMode: true,
+                            }).then((willDelete) => {
+                                if (willDelete) {
+                                    swal({
+                                        title: "Berhasil !",
+                                        text: "Data baru berhasil disimpan dalam database !",
+                                        icon: "success",
+                                    });
+                                } else {
+                                    swal("Data tidak akan disimpan");
+                                }
+                            });
+                        },
+                        error : function(error)
+                        {
+                            console.log(error);
+                            swal({
+                                title: "Gagal!",
+                                text: "Ada kesalahan pada proses penyimpanan data",
+                                icon: "warning",
+                                button: "OK",
+                            });
+                        }
+                    });
+                    return false;
+                }
+            });
+        });
+
+                    
+
+        // When Prev Click
+        $('#btnKembali').on('click', function(){
+            $('#btnSubmit').hide();
+            $('#btnNext').show();
+            // $('#btnKembali').attr('disabled', true);
+        })
+
+        // When Next Click
+        $('#btnLanjutkan').on('click', function(){
+            $('#btnKembali').attr('disabled', false);
+
+            $('#btnNext').hide();
+            $('#btnSubmit').show();
+
+            // $('#valueWarna').text($('#Warna').val())
+            // $('#btnLanjutkan').prop('type', 'submit');
+            // $('#btnLanjutkan').text('Konfirmasi');
+        });
+
+        // Only Number
+        $('.only-number').keypress(function(event) {
+            if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                event.preventDefault();
+            }
+        });
+
+        function cekValueK()
+        {
+            $('#modalCekValueK').modal('show');
+
+            var chart = new CanvasJS.Chart("myCharts", {
+                animationEnabled: true,
+                theme: "light2",
+                
+                axisY:{
+                    includeZero: false
+                },
+                data: [{        
+                    type: "line",
+                    indexLabelFontSize: 12,
+                    dataPoints: [
+                        { y: 0 },
+                        {% for i in error %}
+                            { y: parseFloat("{{ i }}") },
+                        {% endfor %}
+                    ]
+                }]
+            });
+            chart.render();
+
+        }
+
+        
+
+    </script>
+
+{% endblock %}

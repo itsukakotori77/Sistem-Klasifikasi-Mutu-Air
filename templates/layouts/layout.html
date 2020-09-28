@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PDAM</title>
+    <!-- Link CSS -->
+    {% include 'layouts/linkcss.html' %}
+
+    <!-- Font -->
+    <style>
+      .font-mont{
+        font-family: Montserrat;
+      }
+    </style>
+
+    {% block css %}
+    
+    {% endblock %}
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+  <header class="main-header">
+      <!-- Navbar -->
+      {% include 'layouts/navbar.html' %}
+    <!-- Logo -->
+  </header>
+  <!-- =============================================== -->
+  <aside class="main-sidebar">
+    <!-- Sidebar -->
+    {% include 'layouts/sidebar.html' %}
+    <!-- /.sidebar -->
+  </aside>
+  <!-- =============================================== -->
+  <div class="content-wrapper">
+    <!-- Content Here -->
+    {% block content %}
+    
+    {% endblock %}
+  </div>
+
+  <!-- Footer -->
+  {% include 'layouts/footer.html' %}
+  <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- Link JS -->
+{% include 'layouts/linkjs.html' %}
+
+<!-- Script -->
+{% block js %}
+
+{% endblock %}
+</body>
+</html>
